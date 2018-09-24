@@ -1,45 +1,206 @@
-<div *ngIf="!(auth.user | async); else alreadyLoggedIn">
 
-  <p>
-    <input type="text" placeholder="email" #email>
-    <input type="text" placeholder="pass" #pas>
-    <button (click)="login(email,pas)">login</button>
-    <button (click)="singup(email,pas)">Crear</button>
-  </p>
+<div *ngIf="!(auth.user | async); else alreadyLoggedIn"></div>
+<form action="">
+<div class="row mt-5">
+    <div class="col-md-4 mx-auto">
+        <div class="mb-3">
+          <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active show" data-toggle="tab" href="#login">login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#register">register</a>
+              </li>
+          </ul>
+        </div>
+      </div> 
+  </div>
+
+      <div class="col-md-8 mx-auto mt-1">
+          <div class="mb-4" >
+                
+                  <div id="myTabContent" class="tab-content ">
+
+                    
+                      <div class="tab-pane fade active show" id="login">
+                        <div class="mx-auto ">
+                            
+                        </div>
+                        <div class="card border-primary col-md-5 mx-auto bg-light " style="max-width: 33rem;">
+                            <div class="card-body">
+                                <mat-form-field class="inp-tam">
+                                    <input matInput placeholder="Email" [formControl]="emailFormControl"
+                                           [errorStateMatcher]="matcher" #email>
+                                    <mat-hint>Ingrese un e-mail correcto</mat-hint>
+                                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                      Please enter a valid email address
+                                    </mat-error>
+                                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                                        Email is <strong>required</strong>  
+                                    </mat-error>          
+                                  </mat-form-field>
+
+                                  <mat-form-field class="inp-tam">
+                                      <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" #pas>
+                                      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                    </mat-form-field>
+                                  
+                                    <button type="button" class="btn btn-success btn-block" (click)="login(email,pas)">login</button> 
+                            </div>
+                            
+                          </div>
+                          <div class="card border-info col-md-5 mx-auto mt-3" style="max-width: 35rem;">
+                              <div class="card-header"><h3>Social Login</h3></div>
+                              <div class="card-body">
+                                  <button (click)="signInWithGoogle()" class="button btn-social btn-google">
+                                      <i class="fa fa-google fa-lg"></i> Connect Google
+                                    </button>
+                                                            
+                                    <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook" >
+                                      <i class="fa fa-facebook fa-lg"></i> Connect Facebook
+                                    </button>
+                                
+                                    <button (click)="signInWithTwitter()" class="button  btn-social btn-twitter">
+                                      <i class="fa fa-twitter fa-lg"></i> Connect Twitter
+                                    </button>
+                              </div>
+                            </div>
+                   
+                              
+
+                      </div>
+                      <div class="tab-pane fade" id="register">
+                       
+                       
+                       
+                       
+                          <div class="card border-primary col-md-5 mx-auto bg-light " style="max-width: 33rem;">
+                              <div class="card-body">
+                                  <mat-form-field class="inp-tam">
+                                      <input matInput placeholder="Email" [formControl]="emailFormControl"
+                                             [errorStateMatcher]="matcher" #email1>
+                                      <mat-hint>Ingrese un e-mail correcto</mat-hint>
+                                      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                        Please enter a valid email address
+                                      </mat-error>
+                                      <mat-error *ngIf="emailFormControl.hasError('required')">
+                                          Email is <strong>required</strong>  
+                                      </mat-error>          
+                                    </mat-form-field>
+
+                                 
+                                        <mat-form-field class="inp-tam">
+                                          <input matInput placeholder="Nombre" #nombre >
+                                        </mat-form-field>
+                                      
+                                        <mat-form-field class="inp-tam">
+                                            <input matInput placeholder="DNI" #dni >
+                                        </mat-form-field>
+                              
   
+                                    <mat-form-field class="inp-tam">
+                                        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" #pas1>
+                                    
+                                    </mat-form-field>
 
+                                    <mat-form-field class="inp-tam">
+                                        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" #pas2>
+                                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                    </mat-form-field>
+                            
+                                    <fieldset class="form-group">
+                                        <legend>Avatar</legend>
+                                        <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="https://i.pinimg.com/564x/46/ff/08/46ff0809ac62a9be94f3ed127bb9d5d0.jpg" checked="">
+                                            <img class="avatar" src="https://i.pinimg.com/564x/46/ff/08/46ff0809ac62a9be94f3ed127bb9d5d0.jpg" alt="">
+                                          </label>
+                                          <label class="form-check-label">
+                                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="https://i.pinimg.com/564x/07/40/05/0740055eda6cc3cee46b439ca4c850e5.jpg" checked="">
+                                              <img class="avatar" src="https://i.pinimg.com/564x/07/40/05/0740055eda6cc3cee46b439ca4c850e5.jpg" alt="">
+                                            </label>
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="https://i.pinimg.com/564x/77/87/07/7787079b7febe6ba7e095cb758ad4bc0.jpg" checked="">
+                                                <img class="avatar" src="https://i.pinimg.com/564x/77/87/07/7787079b7febe6ba7e095cb758ad4bc0.jpg" alt="">
+                                              </label>
+                                          </div>
+                                      
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios4" value="https://i.pinimg.com/564x/6c/cc/65/6ccc6582c1a7029f5ea39b20f3568fdc.jpg" checked="">
+                                                  <img class="avatar" src="https://i.pinimg.com/564x/6c/cc/65/6ccc6582c1a7029f5ea39b20f3568fdc.jpg" alt="">
+                                                </label>
+                                 
+                                                  <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios5" value="https://i.pinimg.com/564x/62/e8/6d/62e86d5355ac7607ca3414c36f678a4e.jpg" checked="">
+                                                    <img class="avatar" src="https://i.pinimg.com/564x/62/e8/6d/62e86d5355ac7607ca3414c36f678a4e.jpg" alt="">
+                                                  </label>
 
-  <h3>Social Login</h3>
+                                                  <label class="form-check-label">
+                                                      <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios6" value="https://i.pinimg.com/564x/a1/e9/48/a1e948062bcdc2ae9da6c84a202a8a3b.jpg" checked="">
+                                                      <img class="avatar" src="https://i.pinimg.com/564x/a1/e9/48/a1e948062bcdc2ae9da6c84a202a8a3b.jpg" alt="">
+                                                    </label>
+                                                </div>
+                                      </fieldset>
+                                    
+                                      <button type="button" class="btn btn-danger btn-block" (click)="create(email1, nombre,pas1,pas2,dni)">Crear cuenta</button> 
+                              </div>
+                              
+                            </div>
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       </div>
+                    </div>
+          
+              </div>              
+        
+      </div>
 
-    <button (click)="signInWithGoogle()" class="button btn-social btn-google">
-      <i class="fa fa-google fa-lg"></i> Connect Google
-    </button>
+  
+</form>
 
+<div class style>
+    <p>
 
-    <button (click)="signInWithGithub()" class="button btn-social btn-github" disabled>
-      <i class="fa fa-github fa-lg"></i> Connect GitHub
-    </button>
-
-    <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook" >
-      <i class="fa fa-facebook fa-lg"></i> Connect Facebook
-    </button>
-
-    <button (click)="signInWithTwitter()" class="button  btn-social btn-twitter" disabled>
-      <i class="fa fa-twitter fa-lg"></i> Connect Twitter
-    </button>
-
-    <hr>
-
-    <h3>Anonymous Login</h3>
-
-      <button (click)="signInAnonymously()" class="button button-info">
-        <i class="fa fa-user-secret fa-lg"></i> Connect Anonymously
-      </button>
-
-    <hr>
+        <button (click)="login(email,pas)">login</button>
+        <button (click)="singup(email,pas)">Crear</button>
+      </p>
 
 
 </div>
+
+
+
+
+
+
+
 
 <ng-template #alreadyLoggedIn>
   <p class="text-success">
@@ -47,6 +208,3 @@
     <button (click)="singout()">singout</button>
   </p>
 </ng-template>
-
-<input type="text" placeholder="dni" #dni>
-<button (click)="docu(dni.value)">documentos</button>

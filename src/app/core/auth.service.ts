@@ -5,7 +5,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, observable } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 
@@ -14,9 +14,9 @@ import * as firebase from 'firebase/app';
 interface User {
   uid: string;
   email: string;
-  photoURL?: string;
+  dni?:string;
+  avatarURL?: string;
   displayName?: string;
-  favoriteColor?: string;
 }
 interface dni{
   Dni:string;
@@ -28,13 +28,15 @@ interface dni{
 export class AuthService {
 
   user: Observable<User>;
-  dni:Observable<dni[]>;
-  dniCollection: AngularFirestoreCollection<dni>;
+  
+  dni_o:Observable<dni>;
+  dniCollection: AngularFirestoreDocument<dni>;
+
 
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
   ) {
 
       //// Get auth data, then get firestore user document || null
@@ -136,30 +138,83 @@ private oAuthLogin(provider: any) {
 
 
 //// Email/Password Auth ////
-emailSignUp(email: string, password: string) {
-  return this.afAuth.auth
-    .createUserWithEmailAndPassword(email, password)
+async emailSignUp(email: string, password: string, dni:string, nombre: string, avatar:string ) {
+    return this.afAuth.auth
+    .createUserWithEmailAndPassword(email,password)
     .then(credential => {
-     // this.notify.update('Welcome new user!', 'success');
-      return this.updateUserData(credential.user); // if using firestore
+      //this.notify.update('Welcome new user!', 'success');
+      return this.updateUserData(credential.user,dni,nombre,avatar); // if using firestore
     })
     .catch(error => this.handleError(error));
 }
 
+
 // documento
-docu(nrodni:string) {
-   
-   this.afs.collection("Dni").ref.where("Dni","==",nrodni).get().then(function(collection){
-     if(!collection.empty){
-       console.log("algo hay:",collection.docs[0].data());
-       const miinfo=collection.docs[0].data() as dni;
-       console.log(miinfo.Quees)
+/*
+getOnedni(dsi: string){
+  this.dni_o = this.afAuth.authState.pipe(
+    switchMap(dni => {
+      if (this.dni_o) {
+        return this.afs.doc<dni>(`Dni/${dsi}`).valueChanges()
+      } else {
+        return of(null)
+      }
+    })
+  )
+ }  
+*/ usuariosdocu(nrodni:string): Observable <boolean> {   
+  //console.log("entro 1");
+  return new Observable(observer =>{
+    this.afs.collection("users").ref.where("dni","==",nrodni).get().then(function(collection){
+      if(collection.empty){
+        //console.log(collection.docs[0].data());
+        observer.next(true);
+        observer.complete;
+    }else{
+      observer.next(false);
+      observer.complete;
+  }
+  }).catch(function (error) {
+    observer.error(error);
+    observer.complete();
+    console.log("Error getting document:", error);
+ });
+  });
+   /*
+     return true
+   }else {
+    // doc.data() will be undefined in this case
+    return false;
+}
+*/
+}
+
+ docu(nrodni:string): Observable <boolean> {   
+  //console.log("entro 1");
+    return new Observable(observer =>{
+      this.afs.collection("Dni").ref.where("Dni","==",nrodni).get().then(function(collection){
+        if(!collection.empty){
+          //console.log(collection.docs[0].data());
+          observer.next(true);
+          observer.complete;
+      }else{
+        //console.log(collection.docs[0].data());
+        observer.next(false);
+        observer.complete;
+    }
+    }).catch(function (error) {
+      observer.error(error);
+      observer.complete();
+      console.log("Error getting document:", error);
+   });
+    });
+     /*
+       return true
      }else {
       // doc.data() will be undefined in this case
-      console.log("No such document!");
+      return false;
   }
-  
-   })
+  */
 }
 //logine email
 
@@ -196,16 +251,19 @@ private handleError(error: Error) {
 }
 
 // Sets user data to firestore after succesful login
-private updateUserData(user: User) {
+private updateUserData(user: User,dni,nombre,avatar) {
   const userRef: AngularFirestoreDocument<User> = this.afs.doc(
     `users/${user.uid}`
   );
   const data: User = {
     uid: user.uid,
-    email: user.email || null,
-    displayName: user.displayName || 'nameless user',
-    photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ'
+    email: user.email,
+    dni:dni,
+    displayName: nombre|| 'nameless user',
+    avatarURL: avatar|| 'https://goo.gl/Fz9nrQ'
+    
+
   };
   return userRef.set(data);
-}
+} 
 }

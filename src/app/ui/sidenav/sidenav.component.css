@@ -1,0 +1,29 @@
+.sidenav-container {
+  height: 100%;
+}
+.tam-f{
+  max-width: 200px;
+}
+.sidenav {
+  width: 200px;
+ 
+
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 10px;
+}
+
+.bg-fondo{
+ background-color: #2B3E50;
+}
+
+.alto{
+  height: 48px;
+}
+
+.ancho{
+  width: 180px;
+  
+}
