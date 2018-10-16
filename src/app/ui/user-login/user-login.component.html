@@ -1,5 +1,5 @@
 
-<div *ngIf="!(auth.user | async); else alreadyLoggedIn"></div>
+<div *ngIf="!(auth.user | async); else alreadyLoggedIn"> </div>
 <form action="">
 <div class="row mt-5">
     <div class="col-md-4 mx-auto">
@@ -52,17 +52,17 @@
                           <div class="card border-info col-md-5 mx-auto mt-3" style="max-width: 35rem;">
                               <div class="card-header"><h3>Social Login</h3></div>
                               <div class="card-body">
-                                  <button (click)="signInWithGoogle()" class="button btn-social btn-google sm-btn-block">
-                                      <i class="fa fa-google fa-lg"></i> Connect Google
-                                    </button>
-                                                            
-                                    <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook sm-btn-block" >
-                                      <i class="fa fa-facebook fa-lg"></i> Connect Facebook
-                                    </button>
-                                
-                                    <button (click)="signInWithTwitter()" class="button  btn-social btn-twitter col-btn-block">
-                                      <i class="fa fa-twitter fa-lg"></i> Connect Twitter
-                                    </button>
+                      
+                                      <button (click)="signInWithGoogle()" class="button btn-social btn-google btn-block">
+                                          <i class="fa fa-google fa-lg"></i> Connect Google
+                                      </button>
+                                      <button (click)="signInWithFacebook()" class="button  btn-social btn-facebook btn-block" >
+                                          <i class="fa fa-facebook fa-lg"></i> Connect Facebook
+                                        </button>
+                                      <button (click)="signInWithTwitter()" class="button  btn-social btn-twitter btn-block">
+                                          <i class="fa fa-twitter fa-lg"></i> Connect Twitter
+                                       </button>
+                               
                               </div>
                             </div>
                    

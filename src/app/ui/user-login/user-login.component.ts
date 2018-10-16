@@ -31,7 +31,11 @@ export class UserLoginComponent {
 
 private d=[];
   constructor(public auth: AuthService,
-              private router: Router) { }
+              private router: Router) {
+                if(auth.user){
+                  this.router.navigate(['private'])
+                }
+               }
 
   async create(email, nombre,pas,pas1,dni){
    // this.singup(email.value,pas.value,dni.value,nombre.value,document.querySelector('input[name="optionsRadios"]:checked').value);

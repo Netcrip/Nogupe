@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {AuthService} from '../../core/auth.service'
 @Component({
   selector: 'app-nav-list',
   templateUrl: './nav-list.component.html',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth:AuthService) { }
 
   ngOnInit() {
   }
-
+  linkgooglr(){
+  this.auth.linkgoogleLogin();
+  }
+  linkface(){
+    this.auth.linkface();
+  }
 }

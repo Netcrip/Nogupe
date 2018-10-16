@@ -54,7 +54,6 @@ export class AuthService {
 
 ////// OAuth Methods /////
 linkgoogleLogin() {
-  //return this.afAuth.auth.signInWithPopup( new firebase.auth.GoogleAuthProvider);
   const provider = new auth.GoogleAuthProvider();
   //return this.oAuthLogin(provider);
   return firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
@@ -87,11 +86,12 @@ linkface() {
   });;
 
 }
-googleLogin() {
-  return this.afAuth.auth.signInWithPopup( new firebase.auth.GoogleAuthProvider);
-  //const provider = new auth.GoogleAuthProvider();
-//  return this.oAuthLogin(provider);
-  //return firebase.auth().currentUser.linkWithRedirect(provider);
+async googleLogin() {
+  return this.afAuth.auth.signInWithPopup( new firebase.auth.GoogleAuthProvider).then(function(result){
+    console.log(result);
+  }).catch(function(error){
+    console.log(error);
+  });
 
 
 }
@@ -100,9 +100,8 @@ githubLogin() {
   return this.oAuthLogin(provider);
 }
 
-facebookLogin() {
+async facebookLogin() {
   const provider = new firebase.auth.FacebookAuthProvider();
-  //return this.oAuthLogin(provider);
   firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
     //var token = result.credential.accessToken;
