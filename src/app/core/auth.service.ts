@@ -5,23 +5,13 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 
-import { Observable, of, observable } from 'rxjs';
+import { Observable, of, observable, from } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
 import * as firebase from 'firebase/app';
+import {User} from '../interface/user';
+import {Dni} from '../interface/dni';
 
 
-
-interface User {
-  uid: string;
-  email: string;
-  dni?:string;
-  avatarURL?: string;
-  displayName?: string;
-}
-interface dni{
-  Dni:string;
-  Quees:string;
-}
 
 
 @Injectable()
@@ -29,8 +19,8 @@ export class AuthService {
 
   user: Observable<User>;
   
-  dni_o:Observable<dni>;
-  dniCollection: AngularFirestoreDocument<dni>;
+  dni_o:Observable<Dni>;
+  dniCollection: AngularFirestoreDocument<Dni>;
 
 
   constructor(
@@ -52,6 +42,11 @@ export class AuthService {
       
     }
 
+    ////
+    
+getuid(){
+  return this.afAuth.auth.currentUser.uid;
+}
 ////// OAuth Methods /////
 linkgoogleLogin() {
   const provider = new auth.GoogleAuthProvider();

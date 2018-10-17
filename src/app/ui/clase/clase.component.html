@@ -1,0 +1,30 @@
+<div class="container ">
+    <div class="row" *ngIf="clases?.length > 0;else noClase">
+        <div *ngFor="let clases of clases" class="col-12 border">
+                <p><strong>{{clases.fecha}}</strong></p>
+                <h5><strong> {{clases.nombre}}: </strong> </h5>
+                
+                <p>{{clases.texto}}</p>
+        </div>
+      </div>
+      <ng-template #noClase>
+        <hr>
+        <h5>NO EXISTEN POST</h5>
+      </ng-template> 
+      <form >
+          <div *ngIf="auth.user | async as user">
+              <p class="center" #nom hidden> {{user.displayName}}</p>
+          
+          <div class="row">
+              <div class="form-group col-10">
+                  <textarea class="form-control" #texto rows="3"></textarea>
+             </div>
+             <div class="col-2">
+                 <button type="submit" (click)="post(user.displayName, texto)" class="btn  btn-block">Submit</button>
+             </div>
+          </div>  
+        </div>   
+      </form>
+      
+      
+</div>

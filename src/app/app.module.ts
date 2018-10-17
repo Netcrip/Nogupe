@@ -19,6 +19,8 @@ import { NavBarComponent } from './ui/nav-bar/nav-bar.component';
 import { SidenavComponent } from './ui/sidenav/sidenav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
+//import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 //import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { NavListComponent } from './ui/nav-list/nav-list.component';
 import { NavContentComponent } from './ui/nav-content/nav-content.component';
@@ -27,6 +29,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {MaterialComponetnModule} from './material-componetn/material-componetn.module';
 import { PrivateZoneComponent } from './ui/private-zone/private-zone.component';
+import { CursosComponent } from './ui/cursos/cursos.component';
+
+import {CursosService} from './core/cursos.service';
+import { ClaseComponent } from './ui/clase/clase.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +45,9 @@ import { PrivateZoneComponent } from './ui/private-zone/private-zone.component';
     SidenavComponent,
     NavListComponent,
     NavContentComponent,
-    PrivateZoneComponent
+    PrivateZoneComponent,
+    CursosComponent,
+    ClaseComponent
   ],
   imports: [
     BrowserModule,
@@ -57,12 +65,12 @@ import { PrivateZoneComponent } from './ui/private-zone/private-zone.component';
     //MatListModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialComponetnModule
-
+    MaterialComponetnModule,
+  
 
     
   ],
-  providers: [AuthService],
+  providers: [AuthService,CursosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
