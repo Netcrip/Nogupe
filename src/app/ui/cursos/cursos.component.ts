@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CursosService} from '../../core/cursos.service';
 import {CursosInterface} from '../../interface/cursos-interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -11,7 +12,7 @@ export class CursosComponent implements OnInit {
     cursos: CursosInterface[];
     editState: boolean = false;
     cursoToEdit: CursosInterface;
-    constructor(private cursoService: CursosService) { }
+    constructor(private cursoService: CursosService, private router: Router) { }
   
     ngOnInit() {
       this.cursoService.getCursos().subscribe(cursos => {
@@ -35,7 +36,8 @@ export class CursosComponent implements OnInit {
       this.cursoToEdit = null;
     }*/
     irclase(s){
-    
-
+     console.log(s)
+     this.router.navigate(['clase/',s])
     }
+  
 }

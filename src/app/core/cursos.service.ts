@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import {CursosInterface} from '../interface/cursos-interface'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+
 import {AuthService} from '../core/auth.service';
 
 

@@ -3,7 +3,7 @@ import { Injectable, Input } from '@angular/core';
 import {Muro} from '../interface/muro'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 
 

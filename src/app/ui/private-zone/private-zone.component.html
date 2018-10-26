@@ -1,4 +1,17 @@
-<app-ui-sidenav></app-ui-sidenav>
-<p>
-  private-zone works!
-</p>
+<div class="container">
+    <div class="row" *ngIf="cursos?.length > 0;else noCursos">
+        <div *ngFor="let curso of cursos" class="col-12 col-md-3 border">
+                <h2><strong>{{curso.materia}}</strong></h2>
+                <h3>{{curso.cursadan}}</h3>
+                <button (click)="irclase(curso.cursada)" class="bw">
+                <img class="rounded-circle imgw" src={{curso.img}} alt="">
+                </button>
+                <h5>{{curso.fin}}</h5>
+        </div>
+      </div>
+      <ng-template #noCursos>
+        <hr>
+        <h5>NO EXISTEN CURSOS</h5>
+      </ng-template> 
+</div>
+<app-clase></app-clase>

@@ -33,7 +33,7 @@ private d=[];
   constructor(public auth: AuthService,
               private router: Router) {
                 if(auth.user){
-                  this.router.navigate(['private'])
+                  this.router.navigate(['cursos'])
                 }
                }
 

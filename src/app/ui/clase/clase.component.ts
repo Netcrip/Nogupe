@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ClasesService} from '../../core/clases.service';
 import {Muro} from '../../interface/muro';
 import { AuthService } from '../../core/auth.service';
-
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-clase',
@@ -13,16 +13,22 @@ import { AuthService } from '../../core/auth.service';
 export class ClaseComponent implements OnInit {
   clases: Muro[];
   mensaje:Muro;
-  constructor(private claseService: ClasesService,public auth: AuthService
+  constructor(private claseService: ClasesService,public auth: AuthService, private route:ActivatedRoute
       ) { }
 
   ngOnInit() {
-    this.claseService.v="3HrVZChgAwcomPsit3Fz";
+    let s =  this.route.snapshot.paramMap.get('id');
+    this.claseService.v=s;
     this.claseService.cargar();
     this.claseService.getClases().subscribe(clases => {
     this.clases = clases;
     });
   }
+  ngChange(){
+    document.getElementById("mensajebox").scrollTop= document.getElementById("mensajebox").scrollHeight
+  }
+   
+
   clase(){
     
   }
@@ -53,4 +59,5 @@ export class ClaseComponent implements OnInit {
   
     return `${day}/${month}/${year} ${hora}:${min}:${sec}`;
   }
+
 }
